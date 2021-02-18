@@ -1,1 +1,7 @@
 <h1>estas en new</h1>
+
+
+<%= form_with(model: @tweet, local: true) do |form| %>
+  <%= form.text_area :contents, size: "60x10" %>
+  <%= form.submit %>
+<% end %>

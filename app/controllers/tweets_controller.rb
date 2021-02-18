@@ -1,6 +1,6 @@
 class TweetsController < ApplicationController
     before_action :authenticate_user!, :except => [:index]
-    before_action :set_book, only: %i[ show destroy ]
+    before_action :set_tweet, only: %i[ show destroy ]
 
     def index
         @q = Tweet.ransack(params[:q])
@@ -18,6 +18,8 @@ class TweetsController < ApplicationController
   
     def create
         @tweet = Tweet.new(tweet_params)
+        @tweet.user_id = current_user.id if current_user
+
         if @tweet.save
           flash[:success] = "Se creo exitosamente el Tweet"
           redirect_to @tweet
@@ -63,7 +65,7 @@ class TweetsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def tweet_params
-      params.require(:tweet).permit(:content, :id_user)
+      params.require(:tweet).permit(:contents, :id_user)
     end
 end
   
