@@ -3,8 +3,9 @@ class TweetsController < ApplicationController
     before_action :set_tweet, only: %i[ show destroy ]
 
     def index
-        @q = Tweet.ransack(params[:q])
-        @tweet = @q.result(distinct: true).order(:asc).page(params[:page]).per(50)
+      @tweets = Tweet.order(:created_at).page(params[:page]).per(50)
+        # @q = Tweet.ransack(params[:q])
+        # @tweet = @q.result(distinct: true).order(:asc).page(params[:page]).per(50)
      
     end
   
@@ -16,13 +17,13 @@ class TweetsController < ApplicationController
         @tweet = Tweet.new
     end
   
-    def create
+    def create 
         @tweet = Tweet.new(tweet_params)
         @tweet.user_id = current_user.id if current_user
 
         if @tweet.save
           flash[:success] = "Se creo exitosamente el Tweet"
-          redirect_to @tweet
+          redirect_to root_path
         else
           flash[:error] = "Algo paso, intentalo de nuevo"
           render 'new'
