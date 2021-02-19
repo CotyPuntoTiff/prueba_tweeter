@@ -3,7 +3,7 @@ class TweetsController < ApplicationController
     before_action :set_tweet, only: %i[ show destroy ]
 
     def index
-      @tweets = Tweet.order(:created_at).page(params[:page]).per(50)
+      @tweets = Tweet.order(created_at: :desc).page(params[:page]).per(50)
         # @q = Tweet.ransack(params[:q])
         # @tweet = @q.result(distinct: true).order(:asc).page(params[:page]).per(50)
      

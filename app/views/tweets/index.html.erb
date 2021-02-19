@@ -1,11 +1,13 @@
 <h1>index</h1>
-
+<%= paginate @tweets %>
+<%= link_to 'New Post', new_tweet_path if user_signed_in? %>
 <table>
   <thead>
     <tr>
       <th>user_id</th>
       <th>foto</th>
       <th>Content</th>
+      <th>Hora</th>
       <th colspan="2"></th>
     </tr>
   </thead>
@@ -14,9 +16,9 @@
     <% @tweets.each do |tweet| %>
       <tr>
         <td><%= tweet.user_id %></td>
-        <img src=" <%= tweet.user.img_user %> " alt="image_user" style="weigth: 70px; height: 70px;">
+        <td><img src=" <%= tweet.user.img_user %> " alt="image_user" style="weigth: 70px; height: 70px;"></td>
         <td><%= tweet.contents %></td>
-            Tweeted <%= time_ago_in_words(tweet.created_at) %> ago
+           <td> Tweeted <%= time_ago_in_words(tweet.created_at) %> ago </td>
         <td><%= link_to 'Ir al detalle', tweet %></td>
         <% if tweet.user == current_user %>
           <td><%= link_to 'eliminar', tweet, method: :delete, data: { confirm: 'Estas seguro?' } %></td>
@@ -25,8 +27,7 @@
     <% end %>
   </tbody>
 </table>
-
 <br>
+<%= paginate @tweets %>
 
-<%= link_to 'New Post', new_tweet_path if user_signed_in? %>
 

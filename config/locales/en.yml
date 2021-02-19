@@ -31,3 +31,8 @@
 
 en:
   hello: "Hello world"
+  views:
+    pagination:
+      previous: "&lt; Anteriores 50 Tweets"
+      next: "Siguientes 50 Tweets &gt;"
+      truncate: "..."
