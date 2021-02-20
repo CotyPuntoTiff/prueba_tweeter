@@ -36,11 +36,11 @@ class TweetsController < ApplicationController
     original_tweet = Tweet.find(params[:id])
 
     @retweet = Tweet.new(
-      tweet_id: current_user.id,
+      user_id: current_user.id,
       content: original_tweet.content
     )
     if @retweet.save
-      redirect_to tweet_path, alert: ' Hiciste Retweet!'
+      redirect_to retweet_path, alert: ' Hiciste Retweet!'
     else
       redirect_to root_path, alert: ' No pudiste hacer retweet'
     end
