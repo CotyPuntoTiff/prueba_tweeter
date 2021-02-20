@@ -1,3 +1,8 @@
 <h1>estas en show</h1>
-<%= button_to 'Like', post_likes_path(@post), method: :post %>
-<p><%= @post.likes.count %> <%= (@post.likes.count) == 1 ? 'Like' : 'Likes'%></p>
+
+<% pre_like = @tweet.likes.find{ |like| like.user_id == current_user.id} %>
+<% if pre_like %>
+  <%= button_to 'Unlike', tweet_like_path(@tweet, pre_like), method: :delete %>
+<% else %>
+  <%= button_to 'Like', tweet_likes_path(@tweet), method: :post %>
+<% end %>
