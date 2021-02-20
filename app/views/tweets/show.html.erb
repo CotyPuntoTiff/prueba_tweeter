@@ -6,3 +6,9 @@
 <% else %>
   <%= button_to 'Like', tweet_likes_path(@tweet), method: :post %>
 <% end %>
+
+<% @users.each do |u|%>
+        <%  if @tweet.likes.find{ |like| like.user_id == u.id}%>
+        <img src=" <%= u.img_user %> " alt="image_user" style="weigth: 70px; height: 70px;">
+        <% end %>
+<% end %>

@@ -3,14 +3,14 @@ class TweetsController < ApplicationController
     before_action :set_tweet, only: %i[ show destroy ]
 
     def index
-      @tweets = Tweet.order(created_at: :desc).page(params[:page]).per(50)
+      @tweets = Tweet.order(created_at: :desc).page(params[:page]).per(50).includes(:tweet)
         # @q = Tweet.ransack(params[:q])
         # @tweet = @q.result(distinct: true).order(:asc).page(params[:page]).per(50)
      
     end
   
     def show
-  
+      @users = User.all
     end
   
     def new
@@ -68,5 +68,7 @@ class TweetsController < ApplicationController
     def tweet_params
       params.require(:tweet).permit(:contents, :id_user)
     end
+
+
 end
   

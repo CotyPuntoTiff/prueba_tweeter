@@ -18,14 +18,13 @@
         <td><%= tweet.user_id %></td>
         <td><img src=" <%= tweet.user.img_user %> " alt="image_user" style="weigth: 70px; height: 70px;"></td>
         <td><%= tweet.contents %></td>
-           <td> Tweeted <%= time_ago_in_words(tweet.created_at) %> ago </td>
-        <td><%= link_to 'Ir al detalle', tweet %></td>
+        <td><%= link_to "Tweeted #{time_ago_in_words(tweet.created_at)} ago ", tweet %></td>
         <% if tweet.user == current_user %>
           <td><%= link_to 'eliminar', tweet, method: :delete, data: { confirm: 'Estas seguro?' } %></td>
-          <td><%= tweet.likes.count %> <%= (tweet.likes.count) == 1 ? 'Like' : 'Likes'%></tds>
         <% end %>
+          <td><%= tweet.likes.count %> <%= (tweet.likes.count) == 1 ? 'Like' : 'Likes'%></tds>
       </tr>
-    <% end %>
+    <% end %> 
   </tbody>
 </table>
 <br>
