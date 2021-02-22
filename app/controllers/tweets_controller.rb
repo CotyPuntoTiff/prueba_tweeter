@@ -3,10 +3,12 @@ class TweetsController < ApplicationController
     before_action :set_tweet, only: %i[ show destroy ]
 
     def index
-      @tweets = Tweet.order(created_at: :desc).page(params[:page]).per(50).includes(:tweet)
-        # @q = Tweet.ransack(params[:q])
-        # @tweet = @q.result(distinct: true).order(:asc).page(params[:page]).per(50)
-     
+      @user = User.all
+      @friends = Friends.all
+      if current_user?
+        @tweets = Tweet.find_by(tweet_for_me(@friends)).order(created_at: :desc).page(params[:page]).per(50).includes(:tweet)
+      else
+        @tweets = Tweet.order(created_at: :desc).page(params[:page]).per(50).includes(:tweet)
     end
   
     def show
