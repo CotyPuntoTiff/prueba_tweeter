@@ -8,20 +8,24 @@
     <div class="media rounded border border-info m-4">
       <img class="m-3 rounded border border-info" src="<%= tweet.user.img_user %> " alt="image_user" style="weigth: 70px; height: 70px;">
       <div class="media-body">
-        <h5 class="m-2"><%= tweet.user.user_name %></h5>
+        <h5 class="m-2"><%=link_to tweet.user.user_name, user_profile_path(id: tweet.user.id) %></h5>
         <p class=""><%= tweet.contents %></p>
         <h5><%= link_to "Tweeted #{time_ago_in_words(tweet.created_at)} ago ", tweet %></h5>
 <br>
         <% if tweet.user == current_user %>
         <div class="my-3">
         <span class="mx-2"><%= link_to 'eliminar', tweet,class:"btn btn-primary pl-6 ml-5", method: :delete, data: { confirm: 'Estas seguro?' } %></span>
-        <span class="mx-2"><%= tweet.likes.count %> <%= (tweet.likes.count) == 1 ? 'Like' : 'Likes'%></span>
+        <span class="mx-2"><%= tweet.likes.count %><%= (tweet.likes.count) == 1 ? 'Like' : 'Likes'%></span>
         <% end %>
         <span>Retweets:<%= tweet.retweets_for_me.count %> </span>
-        <span class="mx-2"><%= form_with(model: Tweet.new) do |form| %>
-        <%= form.submit 'crear tweet', class:"btn btn-primary"%>
-        <%= link_to 'Retweet', new_tweet_path, class:"btn btn-primary pl-6 ml-5" if user_signed_in? %></span>
-        <% end %>
+        <span class="mx-2">
+          <%= form_with(model: tweet, url: tweets_path, method: :post) do |form| %>
+           <%=form.hidden_field :retweeted, value: true %>
+           <%= form.hidden_field :id %>
+           <%= form.submit 'Retweet', class:"btn btn-primary pl-6 ml-5"%>
+           <%# <%= link_to 'Retweet', new_tweet_path, class:"btn btn-primary pl-6 ml-5" if user_signed_in? %> 
+          <% end %>
+        </span>
         </div>
       </div>
     </div>

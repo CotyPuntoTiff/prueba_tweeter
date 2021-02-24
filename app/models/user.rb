@@ -16,5 +16,10 @@ class User < ApplicationRecord
       end
       return filtro
     end
-end
+  end
+
+  def is_friend_with(user)
+    Friend.where(user_id: self.id, friend_id: user.id).present?
+    
+  end
 end

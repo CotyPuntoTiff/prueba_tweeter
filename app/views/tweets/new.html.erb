@@ -2,8 +2,8 @@
 <div class="row p-5 mb-2 bg-light text-dark">
   <div class="col-4 offset-4">
       <h1>Que estas pensando, <%= current_user.user_name %>??</h1>
-      <%= form.text_area :contents, size: "60x10" %>
       <%= form_with(model: @tweet, local: true) do |form| %>
+      <%= form.text_area :contents, size: "60x10" %>
       <span>
       <%= form.submit 'crear tweet', class:"btn btn-primary"%>
       </span>
