@@ -7,19 +7,19 @@ class User < ApplicationRecord
   has_many :tweets
   has_many :likes 
   has_many :friends
+  scope :tweets_for_me, ->(friend_ids) { Tweets.where(user_id: friends_ids) }
 
-  def tweets_for_me(friends)
-    filtro = Hash.new
-    friends.each do |f|
-      if current_user.id = f.friends_id 
-        filtro.push(f.friend_id)
-      end
-      return filtro
-    end
-  end
+  # def tweets_for_me(friends)
+  #   filtro = Hash.new
+  #   friends.each do |f|
+  #     if current_user.id = f.friends_id 
+  #       filtro.push(f.friend_id)
+  #     end
+  #     return filtro
+  #   end
+  # end
 
   def is_friend_with(user)
-    Friend.where(user_id: self.id, friend_id: user.id).present?
-    
+    Friend.where(user_id: self.id, friend_id: user.id).present? 
   end
 end
