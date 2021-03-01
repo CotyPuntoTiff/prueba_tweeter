@@ -3,7 +3,13 @@ class TweetsController < ApplicationController
   before_action :set_tweet, only: %i[ show destroy ]
 
   def index
-    @tweets =Tweet.all.order(created_at: :desc).page(params[:page]).per(50)
+    if current_user
+      @friends_ids = current_user.friends.pluck(:id)
+      @friends_ids << current_user.id 
+      @tweets = User.tweets_for_me(@friends_ids).order(created_at: :desc).page(params[:page]).per(50)
+    else
+      @tweets =Tweet.all.order(created_at: :desc).page(params[:page]).per(50)
+    end
   end
 
   def show

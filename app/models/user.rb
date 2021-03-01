@@ -7,7 +7,7 @@ class User < ApplicationRecord
   has_many :tweets
   has_many :likes 
   has_many :friends
-  scope :tweets_for_me, ->(friend_ids) { Tweets.where(user_id: friends_ids) }
+  scope :tweets_for_me, ->(friends_ids) { Tweet.where(user_id: friends_ids) }
 
   # def tweets_for_me(friends)
   #   filtro = Hash.new
