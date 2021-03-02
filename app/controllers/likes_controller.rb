@@ -44,7 +44,7 @@ class LikesController < ApplicationController
 
     def find_like
       @like = @tweet.likes.find(params[:id])
-   end
+    end
    
     def already_liked?
       Like.where(user_id: current_user.id, tweet_id:

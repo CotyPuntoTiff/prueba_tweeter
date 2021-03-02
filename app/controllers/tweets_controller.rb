@@ -69,7 +69,11 @@ class TweetsController < ApplicationController
           redirect_to tweets_url
       end
   end
-  
+
+  def api
+    @tweets = Tweet.all
+    render json: @tweets.to_json(only: [:id, :contents])
+  end
 
   private
   # Use callbacks to share common setup or constraints between actions.
